@@ -45,7 +45,6 @@ class Contact:
     setattr(self, update_attribute, update_value)
     return self
 
-
   @classmethod
   def find_by(cls, attribute, value):
     """This method should work similarly to the find method above
@@ -76,15 +75,16 @@ class Contact:
 
 contact1 = Contact.create('Betty', 'Maker', 'bettymakes@bitmakerlabs.com', 'Loves Pokemon')
 contact2 = Contact.create('Bit', 'Bot', 'bitbot@bitmakerlabs.com', 'beep boop')
-print(len(Contact.contacts))
-print(Contact.contacts)
-print(contact1.id)
-print(contact2.id)
+# print(len(Contact.contacts))
+# print(Contact.contacts)
+# print(contact1.id)
+# print(contact2.id)
+# print(Contact.find(1))
 # Contact.all()
-# print(Contact.find(2))
-# print(Contact.find_by('first_name', 'Betty'))
+# print(Contact.delete(Contact.find(2)))
+print(Contact.find_by('first_name', 'Betty'))
 # print(Contact.find_by('last_name', 'Maker'))
-print(contact1.update('first_name', 'Bobby'))
+# print(contact1.update('first_name', 'Bobby'))
 # print(contact1)
 # contact1.first_name = 'Bobby'
 # print(contact1)

@@ -43,21 +43,22 @@ class CRM:
     note = input()
     Contact.create(first_name, last_name, email, note)
   
-  def modify_existing_contact(self):
+  @classmethod
+  def modify_existing_contact(cls):
     print('Please enter an id for the contact to be modified.')
     id = input()
-    Contact.find(id)
+    contact = Contact.find(int(id))
     print('Please enter the attribute to be changed.')
     update_attribute = input()
     print('Please enter the new value for the attribute.')
     update_value = input()
-    Contact.update(self, update_attribute, update_value)
+    contact.update(update_attribute, update_value)
   
   def delete_contact(self):
     print('Please enter an id for the contact to be deleted.')
     id = input()
-    Contact.find(id)
-    Contact.delete(self)
+    contact = Contact.find(int(id))
+    contact.delete()
   
   def display_all_contacts(self):
     Contact.all()
@@ -67,7 +68,8 @@ class CRM:
     attribute = input()
     print('Please enter the search term.')
     value = input()
-    Contact.find_by(attribute, value)
+    found_contact = Contact.find_by(attribute, value)
+    print('The contact matching your search is:' + '\n' + f'{found_contact}' + '\n')
 
 a_crm_app = CRM()
 a_crm_app.main_menu()
