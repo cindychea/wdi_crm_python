@@ -1,6 +1,9 @@
+import sqlite3
+
 from peewee import SqliteDatabase, Model, CharField, TextField
 
 db = SqliteDatabase('crm.db')
+
 
 class Contact(Model):
   first_name = CharField()
