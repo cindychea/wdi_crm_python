@@ -18,5 +18,8 @@ class Contact(Model):
     """Returns the full (first and last) name of the contact"""
     return f'{self.first_name} {self.last_name}'
 
+  def __str__(self):
+    return f'{self.first_name} {self.last_name}'
+
 db.connect()
 db.create_tables([Contact])

@@ -41,35 +41,54 @@ class CRM:
     email = input()
     print('Enter a Note: ')
     note = input()
-    Contact.create(first_name, last_name, email, note)
+    contact = Contact.create(
+      first_name=first_name,
+      last_name=last_name,
+      email=email,
+      note=note
+    )
   
   @classmethod
   def modify_existing_contact(cls):
     print('Please enter an id for the contact to be modified.')
     id = input()
-    contact = Contact.find(int(id))
+    contact = Contact.get(id=id)
     print('Please enter the attribute to be changed.')
     update_attribute = input()
     print('Please enter the new value for the attribute.')
     update_value = input()
-    contact.update(update_attribute, update_value)
+    setattr(contact, update_attribute, update_value)
+    contact.save()
+    return contact
   
   def delete_contact(self):
     print('Please enter an id for the contact to be deleted.')
     id = input()
-    contact = Contact.find(int(id))
-    contact.delete()
+    contact = Contact.get(id=id)
+    contact.delete_instance()
   
   def display_all_contacts(self):
-    Contact.all()
+    for contact in Contact.select():
+      print(contact.full_name())
   
   def search_by_attribute(self):
     print('Please enter the attribute you want to search by.')
     attribute = input()
     print('Please enter the search term.')
     value = input()
-    found_contact = Contact.find_by(attribute, value)
-    print('The contact matching your search is:' + '\n' + f'{found_contact}' + '\n')
+    found_contact = None
+    if attribute == 'first_name':
+      found_contact = Contact.select().where(Contact.first_name == value)
+    elif attribute == 'last_name':
+      found_contact = Contact.select().where(Contact.last_name == value)
+    elif attribute == 'email':
+      found_contact = Contact.select().where(Contact.email == value)
+    elif attribute == 'note':
+      found_contact = Contact.select().where(Contact.note == value)
+    elif attribute == 'id':
+      found_contact = Contact.select().where(Contact.id == value)
+    for contact in found_contact:
+      print(contact)
 
 a_crm_app = CRM()
 a_crm_app.main_menu()
